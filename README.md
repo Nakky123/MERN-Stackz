@@ -37,3 +37,6 @@ Local:   http://localhost:5175/
 ```
 
 2. Open your web brower and go to `http://localhost:5175/` to access the Weather App
+
+# Noted
+I just learn how MERN Stack Mean so the Front-End Have only CRUD function :
