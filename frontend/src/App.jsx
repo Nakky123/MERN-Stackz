@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
-import "./App.css";
 import axios from "axios";
 
 function App() {
@@ -101,79 +100,116 @@ function App() {
   };
 
   return (
-    <>
-      {isEdit ? (
-        <>
-          <form onSubmit={handleSaveEdit}>
+    <div className="bg-gray-100 min-h-screen p-4">
+      <div className="max-w-2xl mx-auto bg-white p-4 rounded shadow">
+        {isEdit ? (
+          <>
+            <form onSubmit={handleSaveEdit}>
+              <input
+                type="text"
+                placeholder="Title..."
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className="border border-gray-300 p-2 rounded w-full mb-2"
+              />
+              <input
+                type="text"
+                name=""
+                placeholder="Load..."
+                value={load}
+                onChange={(e) => setLoad(e.target.value)}
+                className="border border-gray-300 p-2 rounded w-full mb-2"
+              />
+              <input
+                type="text"
+                name=""
+                placeholder="Reps..."
+                value={reps}
+                onChange={(e) => setReps(e.target.value)}
+                className="border border-gray-300 p-2 rounded w-full mb-2"
+              />
+              <button
+                onClick={handleSaveEdit}
+                className="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded"
+              >
+                Update
+              </button>
+            </form>
+            <hr />
+          </>
+        ) : (
+          <form onSubmit={handleAdd}>
             <input
               type="text"
               placeholder="Title..."
               value={title}
               onChange={(e) => setTitle(e.target.value)}
+              className="border border-gray-300 p-2 rounded w-full mb-2"
             />
-            <br />
             <input
               type="text"
               name=""
               placeholder="Load..."
               value={load}
               onChange={(e) => setLoad(e.target.value)}
+              className="border border-gray-300 p-2 rounded w-full mb-2"
             />
-            <br />
             <input
               type="text"
               name=""
-              placeholder="reps..."
+              placeholder="Reps..."
               value={reps}
               onChange={(e) => setReps(e.target.value)}
+              className="border border-gray-300 p-2 rounded w-full mb-2"
             />
-            <br />
-            <button onClick={handleSaveEdit}>Update</button>
+            <button
+              onClick={handleAdd}
+              className="bg-green-500 hover:bg-green-700 text-white px-4 py-2 rounded"
+            >
+              Add Workout
+            </button>
           </form>
-          <hr />
-        </>
-      ) : (
-        <form onSubmit={handleAdd}>
-          <input
-            type="text"
-            placeholder="Title..."
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <br />
-          <input
-            type="text"
-            name=""
-            placeholder="Load..."
-            value={load}
-            onChange={(e) => setLoad(e.target.value)}
-          />
-          <br />
-          <input
-            type="text"
-            name=""
-            placeholder="reps..."
-            value={reps}
-            onChange={(e) => setReps(e.target.value)}
-          />
-          <br />
-          <button>Add New</button>
-        </form>
-      )}
+        )}
 
-      <h1>Hello world</h1>
-      {loading && <p>Loading...</p>}
-      <div>
-        {data &&
-          data.map((each) => (
-            <li style={{ marginBottom: "10px" }}>
-              {each.title}, {each.load}, {each.reps}
-              <button onClick={() => handleEdit(each._id)}>Edit</button>
-              <button onClick={() => handleDelete(each._id)}>Delete</button>
-            </li>
-          ))}
+        <h1 className="text-2xl font-semibold my-4">WORKOUTS</h1>
+
+        {loading && <p>Loading...</p>}
+
+        <ul>
+          {data &&
+            data.map((each) => (
+              <li
+                key={each._id}
+                className="bg-gray-200 p-2 my-2 rounded flex justify-between items-center"
+              >
+                <span className="text-lg">{each.title}</span>
+                <span className="text-lg">
+                  <strong>LOAD </strong>
+                  {each.load}
+                </span>
+                <span className="text-lg">
+                  <strong>REPS </strong>
+                  {each.reps}
+                </span>
+                <div>
+                  <button
+                    onClick={() => handleEdit(each._id)}
+                    className="bg-blue-500 hover:bg-blue-700 text-white px-2 py-1 mx-2 rounded"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleDelete(each._id)}
+                    className="bg-red-500 hover:bg-red-700 text-white px-2 py-1 rounded"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </li>
+            ))}
+        </ul>
       </div>
-    </>
+    </div>
   );
 }
 
