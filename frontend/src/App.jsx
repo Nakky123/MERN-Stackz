@@ -88,14 +88,21 @@ function App() {
   };
 
   const handleDelete = (id) => {
-    setLoading(true);
+    // Update the UI to remove the task immediately
+    const updatedData = data.filter((task) => task._id !== id);
+    setData(updatedData);
+
+    // Initiate the background deletion
     axios
       .delete(`${URL}/workouts/${id}`)
-      .then((res) => {
-        fetchData();
+      .then(() => {
+        // Successful deletion from the database
+        console.log(`Task with ID ${id} deleted from the database.`);
       })
-      .finally(() => {
-        setLoading(false);
+      .catch((err) => {
+        console.error(`Error deleting task with ID ${id}: ${err}`);
+        // If there's an error, you may want to re-add the task to the UI
+        setData([...data, ...updatedData]);
       });
   };
 
